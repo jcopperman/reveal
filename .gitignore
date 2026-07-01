@@ -7,3 +7,6 @@ server/data/*.db
 server/data/*.db-*
 uploads/
 *.log.tmp
+
+# Claude Code: share settings.json + hooks, keep personal overrides local
+.claude/settings.local.json

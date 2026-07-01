@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install*)",
+      "Bash(npm run*)",
+      "Bash(node scripts/smoke.js)",
+      "Bash(node src/index.js)",
+      "Bash(curl -s http://localhost:*)",
+      "Bash(curl -s -X POST http://localhost:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/smoke-check.mjs"
+          }
+        ]
+      }
+    ]
+  }
+}
