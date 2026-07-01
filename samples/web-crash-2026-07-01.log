@@ -1,0 +1,40 @@
+2026-07-01T07:58:01.002Z INFO  [web] request_id=a1f0c2 GET /health 200 3ms
+2026-07-01T07:59:14.771Z INFO  [web] request_id=a1f0d5 GET /products 200 41ms
+2026-07-01T08:00:00.010Z INFO  [scheduler] nightly cache warm started
+2026-07-01T08:01:22.500Z INFO  [web] request_id=b2e1a3 POST /cart 200 66ms
+2026-07-01T08:02:47.113Z INFO  [db] connection pool size=10 active=4 idle=6
+2026-07-01T08:11:03.220Z WARN  [db] request_id=c3d2f1 connection acquired slowly (812ms), pool active=9 idle=1
+2026-07-01T08:11:59.640Z WARN  [db] request_id=c3d2f7 connection acquired slowly (1204ms), pool active=10 idle=0
+2026-07-01T08:12:04.101Z ERROR [web] request_id=c3d2f9 GET /products status=500 unhandled error while handling request
+com.reveal.db.PoolExhaustedException: Timeout waiting for idle connection (pool active=10 idle=0 max=10) after 2000ms
+    at com.reveal.db.ConnectionPool.acquire(ConnectionPool.java:142)
+    at com.reveal.db.Repository.query(Repository.java:58)
+    at com.reveal.catalog.ProductService.list(ProductService.java:73)
+    at com.reveal.web.ProductController.get(ProductController.java:41)
+    at com.reveal.web.Dispatcher.handle(Dispatcher.java:210)
+2026-07-01T08:12:04.880Z ERROR [web] request_id=c3d310 GET /products status=500 unhandled error while handling request
+com.reveal.db.PoolExhaustedException: Timeout waiting for idle connection (pool active=10 idle=0 max=10) after 2000ms
+    at com.reveal.db.ConnectionPool.acquire(ConnectionPool.java:142)
+    at com.reveal.db.Repository.query(Repository.java:58)
+    at com.reveal.catalog.ProductService.list(ProductService.java:73)
+2026-07-01T08:12:05.512Z ERROR [web] request_id=c3d311 POST /cart status=500 unhandled error while handling request
+com.reveal.db.PoolExhaustedException: Timeout waiting for idle connection (pool active=10 idle=0 max=10) after 2000ms
+    at com.reveal.db.ConnectionPool.acquire(ConnectionPool.java:142)
+    at com.reveal.cart.CartService.addItem(CartService.java:88)
+2026-07-01T08:12:06.400Z ERROR [db] connection leak suspected: 10 connections checked out for >4000ms
+2026-07-01T08:12:09.220Z ERROR [web] request_id=c3d318 GET /products status=500 unhandled error while handling request
+com.reveal.db.PoolExhaustedException: Timeout waiting for idle connection (pool active=10 idle=0 max=10) after 2000ms
+    at com.reveal.db.ConnectionPool.acquire(ConnectionPool.java:142)
+2026-07-01T08:12:12.900Z ERROR [web] request_id=c3d320 GET /products status=500 unhandled error while handling request
+com.reveal.db.PoolExhaustedException: Timeout waiting for idle connection (pool active=10 idle=0 max=10) after 2000ms
+    at com.reveal.db.ConnectionPool.acquire(ConnectionPool.java:142)
+2026-07-01T08:12:20.110Z FATAL [web] health check failed: database unavailable, marking instance UNHEALTHY
+2026-07-01T08:12:20.640Z WARN  [lb] instance web-03 removed from rotation (failed health check)
+2026-07-01T08:13:00.000Z INFO  [scheduler] nightly cache warm still running (holding 6 db connections)
+2026-07-01T08:14:33.070Z ERROR [web] request_id=c3d401 GET /products status=500 unhandled error while handling request
+com.reveal.db.PoolExhaustedException: Timeout waiting for idle connection (pool active=10 idle=0 max=10) after 2000ms
+    at com.reveal.db.ConnectionPool.acquire(ConnectionPool.java:142)
+2026-07-01T08:16:10.400Z INFO  [scheduler] nightly cache warm finished, released 6 db connections
+2026-07-01T08:16:12.220Z INFO  [db] connection pool size=10 active=3 idle=7
+2026-07-01T08:16:40.900Z INFO  [web] request_id=d4a0b1 GET /products 200 52ms
+2026-07-01T08:17:02.330Z INFO  [lb] instance web-03 returned to rotation (health check passing)

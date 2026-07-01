@@ -1,0 +1,28 @@
+2026-06-30T22:14:03.100Z INFO  [auth] trace_id=7c9a11 POST /v2/token/refresh 200 34ms user=4821
+2026-06-30T22:40:55.020Z INFO  [mobile-api] trace_id=7c9a20 GET /v2/feed 200 61ms user=4821
+2026-06-30T23:00:01.900Z INFO  [deploy] mobile-api v2.7.0 rolled out (auth token TTL changed 3600s -> 900s)
+2026-06-30T23:15:22.400Z WARN  [auth] trace_id=8a01c3 token expired for user=5567, client attempted refresh
+2026-06-30T23:15:22.870Z ERROR [auth] trace_id=8a01c3 POST /v2/token/refresh status=401 invalid_grant
+com.reveal.auth.InvalidGrantException: refresh_token rejected: rotated token reuse detected
+    at com.reveal.auth.TokenService.refresh(TokenService.java:203)
+    at com.reveal.auth.AuthController.refresh(AuthController.java:77)
+2026-06-30T23:15:24.110Z ERROR [mobile-api] trace_id=8a01c3 GET /v2/feed status=401 unauthorized (no valid token)
+2026-06-30T23:16:05.220Z ERROR [auth] trace_id=8a02f0 POST /v2/token/refresh status=401 invalid_grant
+com.reveal.auth.InvalidGrantException: refresh_token rejected: rotated token reuse detected
+    at com.reveal.auth.TokenService.refresh(TokenService.java:203)
+2026-06-30T23:16:41.900Z ERROR [auth] trace_id=8a0344 POST /v2/token/refresh status=401 invalid_grant
+com.reveal.auth.InvalidGrantException: refresh_token rejected: rotated token reuse detected
+    at com.reveal.auth.TokenService.refresh(TokenService.java:203)
+2026-06-30T23:17:10.050Z WARN  [auth-monitor] 401 rate on /v2/token/refresh spiked to 74% (baseline 1%)
+2026-06-30T23:18:33.700Z ERROR [auth] trace_id=8a0410 POST /v2/token/refresh status=401 invalid_grant
+com.reveal.auth.InvalidGrantException: refresh_token rejected: rotated token reuse detected
+    at com.reveal.auth.TokenService.refresh(TokenService.java:203)
+2026-06-30T23:18:34.220Z ERROR [mobile-api] trace_id=8a0410 GET /v2/messages status=401 unauthorized (no valid token)
+2026-06-30T23:20:00.000Z ERROR [auth] trace_id=8a0500 POST /v2/token/refresh status=401 invalid_grant
+com.reveal.auth.InvalidGrantException: refresh_token rejected: rotated token reuse detected
+    at com.reveal.auth.TokenService.refresh(TokenService.java:203)
+2026-06-30T23:22:47.300Z WARN  [support] surge in "logged out unexpectedly" reports from mobile users
+2026-06-30T23:41:12.660Z INFO  [auth] investigating: token rotation grace window is 0s after v2.7.0 config change
+2026-07-01T00:02:19.010Z INFO  [deploy] mobile-api v2.7.1 hotfix (refresh token rotation grace window set to 60s)
+2026-07-01T00:10:05.400Z INFO  [auth] trace_id=9b1120 POST /v2/token/refresh 200 29ms user=5567
+2026-07-01T00:10:41.220Z INFO  [auth-monitor] 401 rate on /v2/token/refresh back to 1.2%

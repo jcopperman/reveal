@@ -1,0 +1,30 @@
+2026-07-01T13:02:11.100Z INFO  [checkout] correlation_id=pay-8801 POST /checkout/pay started amount=49.99 currency=USD
+2026-07-01T13:02:11.640Z INFO  [checkout] correlation_id=pay-8801 calling gateway stripe-eu timeout=8000ms
+2026-07-01T13:02:19.700Z WARN  [checkout] correlation_id=pay-8801 gateway stripe-eu slow response (8021ms)
+2026-07-01T13:02:19.712Z ERROR [checkout] correlation_id=pay-8801 POST /checkout/pay status=504 gateway timeout
+com.reveal.payments.GatewayTimeoutException: Upstream 'stripe-eu' did not respond within 8000ms
+    at com.reveal.payments.GatewayClient.post(GatewayClient.java:117)
+    at com.reveal.payments.PaymentService.charge(PaymentService.java:64)
+    at com.reveal.checkout.CheckoutController.pay(CheckoutController.java:52)
+2026-07-01T13:03:04.220Z INFO  [checkout] correlation_id=pay-8802 POST /checkout/pay started amount=12.00 currency=USD
+2026-07-01T13:03:12.240Z ERROR [checkout] correlation_id=pay-8802 POST /checkout/pay status=504 gateway timeout
+com.reveal.payments.GatewayTimeoutException: Upstream 'stripe-eu' did not respond within 8000ms
+    at com.reveal.payments.GatewayClient.post(GatewayClient.java:117)
+    at com.reveal.payments.PaymentService.charge(PaymentService.java:64)
+2026-07-01T13:03:40.900Z WARN  [gateway-monitor] stripe-eu p95 latency=8300ms error_rate=61%
+2026-07-01T13:04:01.010Z INFO  [checkout] correlation_id=pay-8803 POST /checkout/pay started amount=99.90 currency=EUR
+2026-07-01T13:04:09.030Z ERROR [checkout] correlation_id=pay-8803 POST /checkout/pay status=504 gateway timeout
+com.reveal.payments.GatewayTimeoutException: Upstream 'stripe-eu' did not respond within 8000ms
+    at com.reveal.payments.GatewayClient.post(GatewayClient.java:117)
+2026-07-01T13:04:15.400Z WARN  [checkout] correlation_id=pay-8804 retry 1/3 for failed charge
+2026-07-01T13:04:23.470Z ERROR [checkout] correlation_id=pay-8804 POST /checkout/pay status=504 gateway timeout after retries
+com.reveal.payments.GatewayTimeoutException: Upstream 'stripe-eu' did not respond within 8000ms
+    at com.reveal.payments.GatewayClient.post(GatewayClient.java:117)
+    at com.reveal.payments.PaymentService.charge(PaymentService.java:64)
+2026-07-01T13:05:00.000Z WARN  [gateway-monitor] stripe-eu circuit breaker OPEN (error_rate over threshold)
+2026-07-01T13:05:02.220Z ERROR [checkout] correlation_id=pay-8805 POST /checkout/pay status=503 payment temporarily unavailable (circuit open)
+2026-07-01T13:05:44.600Z INFO  [checkout] correlation_id=pay-8806 GET /checkout/status 200 8ms
+2026-07-01T13:09:31.900Z INFO  [gateway-monitor] stripe-eu latency recovering p95=420ms error_rate=2%
+2026-07-01T13:10:00.100Z INFO  [gateway-monitor] stripe-eu circuit breaker HALF_OPEN
+2026-07-01T13:10:41.220Z INFO  [checkout] correlation_id=pay-8810 POST /checkout/pay 200 512ms amount=24.50 currency=USD
+2026-07-01T13:11:05.660Z INFO  [gateway-monitor] stripe-eu circuit breaker CLOSED

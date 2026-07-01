@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reveal — QA Log Investigation</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">🔎 <strong>Reveal</strong> <span>AI-assisted QA log investigation</span></div>
+      <div id="provider-badge" class="badge">provider: …</div>
+    </header>
+
+    <main class="layout">
+      <!-- Left: input -->
+      <section class="panel input-panel">
+        <h2>1 · Upload logs</h2>
+        <label id="dropzone" class="dropzone" for="file-input">
+          <input id="file-input" type="file" multiple accept=".log,.txt,.json,.out" hidden />
+          <div class="dz-inner">
+            <div class="dz-icon">📄</div>
+            <div>Drag log files here or <span class="link">browse</span></div>
+            <small>.log .txt .json — multiple allowed</small>
+          </div>
+        </label>
+        <ul id="file-list" class="file-list"></ul>
+
+        <h2>2 · Describe the issue</h2>
+        <textarea
+          id="prompt"
+          rows="3"
+          placeholder="e.g. My website crashed this morning but I'm not sure why."
+        ></textarea>
+
+        <button id="investigate" class="primary" disabled>Investigate</button>
+        <div id="status" class="status"></div>
+      </section>
+
+      <!-- Middle: report -->
+      <section class="panel report-panel">
+        <div class="report-header">
+          <h2>Investigation</h2>
+          <button id="export" class="ghost" disabled>⬇ Export Markdown</button>
+        </div>
+        <div id="report" class="report">
+          <div class="empty">Upload a log file, describe the issue, and click <b>Investigate</b>.</div>
+        </div>
+      </section>
+
+      <!-- Right: history + evidence -->
+      <aside class="panel side-panel">
+        <h2>History</h2>
+        <ul id="history" class="history"></ul>
+        <h2>Selected evidence</h2>
+        <div id="evidence" class="evidence"><div class="empty">No investigation yet.</div></div>
+      </aside>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
