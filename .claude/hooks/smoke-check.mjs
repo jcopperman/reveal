@@ -14,6 +14,10 @@
  *  - Reads the Stop payload as JSON on stdin.
  *  - If stop_hook_active is true (we're already inside a stop-hook-triggered
  *    continuation), exits 0 to avoid an infinite loop.
+ *  - Skips (exit 0) when the git working tree has no uncommitted changes under
+ *    server/ or samples/ — nothing smoke covers has changed. If git is
+ *    unavailable it runs smoke anyway (fail-safe: the invariant check matters
+ *    more than the saved second).
  *  - Runs `npm run smoke`. On failure it writes to stderr and exits 2, which
  *    blocks the stop and feeds the failure back to Claude to fix.
  *
@@ -45,6 +49,18 @@ try {
 // Prevent loops: if this stop was itself triggered by a previous stop-hook
 // block, don't run again.
 if (payload.stop_hook_active) {
+  process.exit(0);
+}
+
+// Diff-aware: only run when something smoke actually covers has changed.
+// `git status --porcelain` lists staged, unstaged, and untracked changes.
+// Empty output under these paths => nothing to check => skip. If git errors
+// (not installed, not a repo), fall through and run smoke anyway.
+const gitStatus = spawnSync('git', ['status', '--porcelain', '--', 'server', 'samples'], {
+  cwd: projectRoot,
+  encoding: 'utf8',
+});
+if (gitStatus.status === 0 && gitStatus.stdout.trim() === '') {
   process.exit(0);
 }
 
